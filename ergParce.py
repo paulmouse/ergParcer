@@ -4,10 +4,11 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.ini')
 
+
 def process_erg(ergPath, nclPath, nonvalidFolder):
     # Создаем список файлов с расширением ".erg" в указанной папке
     erg_files = [f for f in os.listdir(ergPath) if
-                 os.path.isfile(os.path.join(ergPath, f)) and f.endswith('.erg')]
+                 os.path.isfile(os.path.join(ergPath, f)) and f.endswith(inputType)]
     # print()
 
     # Читаем лог файл, если он существует
@@ -32,7 +33,7 @@ def process_erg(ergPath, nclPath, nonvalidFolder):
 
             # Записываем содержимое и имя в файл ".ncl"
             if file_name.isdigit():
-                ncl_file_path = os.path.join(nclPath, file_name + '.ncl')
+                ncl_file_path = os.path.join(nclPath, file_name + outputType)
                 with open(ncl_file_path, 'w', encoding='UTF-8') as file:
                     # print(content + file_name)
                     # input()
@@ -41,7 +42,7 @@ def process_erg(ergPath, nclPath, nonvalidFolder):
                 with open(log_file, 'a') as file:
                     file.write(erg_file + '\n')
             else:
-                ncl_file_path = os.path.join(nonvalidFolder, file_name + '.ncl')
+                ncl_file_path = os.path.join(nonvalidFolder, file_name + outputType)
                 with open(ncl_file_path, 'w', encoding='UTF-8') as file:
                     # print(content + file_name)
                     # input()
@@ -53,5 +54,7 @@ def process_erg(ergPath, nclPath, nonvalidFolder):
 sourceFolder = config.get("settings", 'sourceFolder')
 destinationFolder = config.get("settings", "destinationFolder")
 nonvalidFolder = config.get("settings", "nonvalidFolder")
+inputType = config.get("files", "inputType")
+outputType = config.get("files", "outputType")
 
 process_erg(sourceFolder, destinationFolder,nonvalidFolder)
