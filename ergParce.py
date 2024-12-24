@@ -57,4 +57,4 @@ nonvalidFolder = config.get("settings", "nonvalidFolder")
 inputType = config.get("files", "inputType")
 outputType = config.get("files", "outputType")
 
-process_erg(sourceFolder, destinationFolder,nonvalidFolder)
+process_erg(sourceFolder, destinationFolder, nonvalidFolder)
